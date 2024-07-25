@@ -10,10 +10,11 @@ use App\Http\Middleware\AuthCheck;
 // })->middleware(AuthCheck::class);
 
 Route::get('/', [AdminAuthController::class, 'index']);
-Route::get('/login', [AdminAuthController::class, 'login']);
-Route::get('/registration', [AdminAuthController::class, 'registration']);
+Route::get('/login', [AdminAuthController::class, 'login'])->middleware('alreadyloggedin');
+Route::get('/registration', [AdminAuthController::class, 'registration'])->middleware('alreadyloggedin');
 Route::post('/register-user', [AdminAuthController::class, 'registerUser'])->name('register-user');
 Route::post('login-user', [AdminAuthController::class, 'loginUser'])->name('login-user');
-// Route::get('/dashboard', [CustomAuthenticationController::class, 'dashboard'])->middleware(AuthCheck::class);
-Route::get('/dashboard', [AdminAuthController::class, 'dashboard']);
+Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->middleware('isLoggedIn');
 Route::get('logout', [AdminAuthController::class, 'logout']);
+
+// Asaaju Olalelkan
